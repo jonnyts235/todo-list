@@ -10,14 +10,17 @@ class TodoItem extends React.Component {
   }
 
   toggleDone = () => {
-    fetch(`http://localhost:5000/todo/${this.props.id}`, {
-      method: "PUT",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify({
-        title: this.props.title,
-        done: !this.state.done
-      })
-    }).then(this.setState({ done: !this.state.done }));
+    fetch(
+      `http://gallant-mirzakhani-7181b7.netlify.com/todo/${this.props.id}`,
+      {
+        method: "PUT",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({
+          title: this.props.title,
+          done: !this.state.done
+        })
+      }
+    ).then(this.setState({ done: !this.state.done }));
   };
 
   render() {
