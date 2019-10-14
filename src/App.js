@@ -13,7 +13,7 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    fetch("http://gallant-mirzakhani-7181b7.netlify.com/todos")
+    fetch("https://jts-todo-list.herokuapp.com/todos")
       .then(response => response.json())
       .then(data =>
         this.setState({
@@ -42,7 +42,7 @@ class App extends React.Component {
 
   addTodo = event => {
     event.preventDefault();
-    fetch("http://gallant-mirzakhani-7181b7.netlify.com/todo", {
+    fetch("https://jts-todo-list.herokuapp.com/todo", {
       method: "POST",
       headers: { "content-type": "application/json" },
       body: JSON.stringify({
@@ -60,7 +60,7 @@ class App extends React.Component {
   };
 
   deletedTodo = id => {
-    fetch(`http://gallant-mirzakhani-7181b7.netlify.com/todo/${id}`, {
+    fetch(`https://jts-todo-list.herokuapp.com/todo/${id}`, {
       method: "DELETE"
     }).then(
       this.setState({
