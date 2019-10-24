@@ -1,5 +1,4 @@
 import React from "react";
-
 import TodoItem from "./TodoItem";
 
 class App extends React.Component {
@@ -13,13 +12,15 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    fetch("https://jts-todo-list.herokuapp.com/todos")
+    fetch("https://todo-list-1ab0a.firebaseio.com/todos.json")
       .then(response => response.json())
-      .then(data =>
-        this.setState({
-          todos: data
-        })
-      );
+      .then(data => {
+        const loadedTodos = [];
+        for (const id in data) {
+          loadedTodos.push({ id, ...data[id] });
+        }
+        this.setState({ todos: loadedTodos });
+      });
   }
 
   renderTodos = () => {
@@ -42,7 +43,7 @@ class App extends React.Component {
 
   addTodo = event => {
     event.preventDefault();
-    fetch("https://jts-todo-list.herokuapp.com/todo", {
+    fetch("https://todo-list-1ab0a.firebaseio.com/todos.json", {
       method: "POST",
       headers: { "content-type": "application/json" },
       body: JSON.stringify({
@@ -53,14 +54,17 @@ class App extends React.Component {
       .then(response => response.json())
       .then(data =>
         this.setState({
-          todos: [...this.state.todos, data],
+          todos: [
+            ...this.state.todos,
+            { id: data.name, title: this.state.todo, done: false }
+          ],
           todo: ""
         })
       );
   };
 
   deletedTodo = id => {
-    fetch(`https://jts-todo-list.herokuapp.com/todo/${id}`, {
+    fetch(`https://todo-list-1ab0a.firebaseio.com/todos/${id}.json`, {
       method: "DELETE"
     }).then(
       this.setState({

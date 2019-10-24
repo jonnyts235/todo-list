@@ -11,7 +11,7 @@ class TodoItem extends React.Component {
 
   toggleDone = () => {
     fetch(
-      `http://gallant-mirzakhani-7181b7.netlify.com/todo/${this.props.id}`,
+      `https://todo-list-1ab0a.firebaseio.com/todos/${this.props.id}.json`,
       {
         method: "PUT",
         headers: { "content-type": "application/json" },
